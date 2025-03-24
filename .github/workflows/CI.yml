@@ -14,8 +14,7 @@ env:
 jobs:
   # Create and post docker image, bump
   build-docker-push-image:
-    runs-on: k8s-${{ matrix.runner_platform }}
-
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         platform: [amd64, arm64]
