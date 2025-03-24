@@ -2,15 +2,12 @@ name: CI
 
 on:
   push:
-    branches-ignore:
-      - "renovate/3rd-party**" # Do not build 3rd party package updates automatically to avoid some hacked package stealing all our secrets https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
     paths-ignore:
       - "**.md"
-      - ".github/renovate.json"
 
 env:
   IMAGE_NAME: ghstahl/nats
-  BASE_VERSION: "1.0.0"
+  BASE_VERSION: "2.11.0.0"
   buf_version: "latest"
   go_version: "1.24"
 
