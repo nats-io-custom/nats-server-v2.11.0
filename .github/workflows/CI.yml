@@ -123,8 +123,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: mappeddev.azurecr.io
-          username: ${{ secrets.AZURE_CONTAINER_WRITE_ID }}
-          password: ${{ secrets.AZURE_CONTAINER_WRITE_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push
         id: docker_build
@@ -166,8 +166,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: mappeddev.azurecr.io
-          username: ${{ secrets.AZURE_CONTAINER_WRITE_ID }}
-          password: ${{ secrets.AZURE_CONTAINER_WRITE_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       # Note: The `extra-images` parameter needs to specify each of the matrix `image-suffix` values
       #       from the `build-docker-push-image` job above.
@@ -178,26 +178,3 @@ jobs:
           images: ${{ steps.vtl.outputs.docker_dtag }}-amd64,${{ steps.vtl.outputs.docker_dtag }}-arm64
           push: ${{ steps.vtl.outputs.docker_push }}
           amend: false
-
-  renovate:
-    runs-on: ubuntu-latest
-    needs: [build-docker-push-image, docker-merged-manifest]
-
-    steps:
-      - name: Get Renovate trigger app token
-        id: renovate-trigger-token
-        if: ${{ startsWith(github.ref, 'refs/heads/renovate') }}
-        uses: jnwng/github-app-installation-token-action@v2
-        with:
-          appId: 129860
-          privateKey: ${{ secrets.RENOVATE_TRIGGER_APP_PRIVATE_KEY }}
-          installationId: 18651565
-
-      - name: Trigger Renovate
-        if: ${{ startsWith(github.ref, 'refs/heads/renovate') }}
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: Renovate
-          repo: mapped/renovate-config
-          ref: refs/heads/main
-          token: ${{ steps.renovate-trigger-token.outputs.token }}
