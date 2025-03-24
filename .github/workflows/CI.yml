@@ -115,10 +115,9 @@ jobs:
           CLONE_FOLDER: ./nats-server
           BUILD_FOLDER: ./build
 
-      - name: Login to ACR
+      - name: Login to DOCKER
         uses: docker/login-action@v3
         with:
-          registry: mappeddev.azurecr.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
@@ -161,7 +160,6 @@ jobs:
       - name: Login to ACR
         uses: docker/login-action@v3
         with:
-          registry: mappeddev.azurecr.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
