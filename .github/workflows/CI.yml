@@ -15,6 +15,9 @@ jobs:
   # Create and post docker image, bump
   build-docker-push-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # This grants write permission for repository contents, including tags
+
     strategy:
       matrix:
         platform: [amd64, arm64]
@@ -144,6 +147,8 @@ jobs:
 
   docker-merged-manifest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # This grants write permission for repository contents, including tags
     needs: [build-docker-push-image]
     steps:
       - name: Set up Docker Buildx
