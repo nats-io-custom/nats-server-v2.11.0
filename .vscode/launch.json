@@ -41,6 +41,24 @@
                 "-c","${workspaceFolder}/configs/static_callout_lookup.conf",
 
             ]    
+        }, {
+            "name": "nats server - StaticConf-AccountResolver",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/nats-server",
+            "console": "externalTerminal",
+            "env": {
+                "SERVER_NAME":"nats"
+            },
+            "args": [ 
+                "-n","internal-server",
+                "-m","8222",
+                "-js",
+                "-debug",
+                "-c","${workspaceFolder}/configs/static_callout_account_resolver.conf",
+
+            ]    
         }
     ]
 }

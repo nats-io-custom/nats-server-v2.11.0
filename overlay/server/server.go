@@ -1508,6 +1508,9 @@ func (s *Server) isTrustedIssuer(issuer string) bool {
 	if s.trustedKeys == nil && issuer == _EMPTY_ {
 		return true
 	}
+	if len(s.trustedKeys) == 0 {
+		return issuer == s.opts.AuthCallout.Issuer
+	}
 	if s.accResolverType == "CUSTOM_LOOKUP_FULL" || s.accResolverType == "CUSTOM_LOOKUP_CACHE" || s.accResolverType == "CUSTOM_LOOKUP" {
 		// the trusted keys is the authorization.auth_callout.issuer
 		return issuer == s.opts.AuthCallout.Issuer
