@@ -5,6 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "nats server - UrlResolver-Synadia",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/nats-server",
+            "console": "externalTerminal",
+            "env": {
+                "SERVER_NAME":"nats"
+            },
+            "args": [ 
+                "-n","internal-server",
+                "-m","8222",
+                "-js",
+                "-debug",
+                "-c","${workspaceFolder}/configs/test/server.url.resolver.conf",
+
+            ]    
+        },    
+        {
             "name": "nats server - DecentralizedDynamicAccount-Synadia",
             "type": "go",
             "request": "launch",
