@@ -389,6 +389,7 @@ type Options struct {
 	MaxTracedMsgLen int `json:"-"`
 
 	// Operating a trusted NATS server
+	AuthSentinelJWT          string                `json:"-"`
 	TrustedKeys              []string              `json:"-"`
 	TrustedOperators         []*jwt.OperatorClaims `json:"-"`
 	AccountResolver          AccountResolver       `json:"-"`
@@ -1298,6 +1299,13 @@ func (o *Options) processConfigFileLine(k string, v any, errors *[]error, warnin
 			return
 		}
 		o.LameDuckGracePeriod = dur
+	case "auth_sentinel_jwt":
+		switch v := v.(type) {
+		case string:
+
+			o.AuthSentinelJWT = v
+
+		}
 	case "operator", "operators", "roots", "root", "root_operators", "root_operator":
 		opFiles := []string{}
 		switch v := v.(type) {
